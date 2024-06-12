@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+  <title>Traffic Light Control</title>
+  <style type="text/css">
+     body {
+        background-color: rgb(248, 248, 199);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        flex-direction: column;
+     }
+     .box {
+        width: 30px;
+        border: 2px solid green;
+        padding: 12px 12px;
+        margin: 10px;
+     }
+     button {
+        border: none;
+        background: none;
+     }
+     .row {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+     }
+     input {
+        width: 270px;
+        height: 30px;
+     }
+  </style>
+</head>
+<body>
+   <h1 class="animate__animated animate__backInDown">Calculatrice</h1>
+
+   <div class="row">
+       <div class="box">
+         <button onclick="appendNumber('1')">
+            <p>1</p>
+         </button>
+       </div>
+       <div class="box">
+         <button onclick="appendNumber('2')">
+            <p>2</p>
+         </button>
+       </div>
+       <div class="box">
+         <button onclick="appendNumber('3')">
+            <p>3</p>
+         </button>
+       </div>
+       <div class="box">
+         <button onclick="chooseOperation('+')">
+            +
+         </button>
+       </div>
+  </div>
+
+  <div class="row">
+      <div class="box">
+        <button onclick="appendNumber('4')">
+           <p>4</p>
+        </button>
+      </div>
+      <div class="box">
+        <button onclick="appendNumber('5')">
+           <p>5</p>
+        </button>
+      </div>
+      <div class="box">
+        <button onclick="appendNumber('6')">
+           <p>6</p>
+        </button>
+      </div>
+      <div class="box">
+         <button onclick="chooseOperation('-')">
+            -
+         </button>
+       </div>
+  </div>
+
+  <div class="row">
+   <div class="box">
+     <button onclick="appendNumber('7')">
+        <p>7</p>
+     </button>
+   </div>
+   <div class="box">
+     <button onclick="appendNumber('8')">
+        <p>8</p>
+     </button>
+   </div>
+   <div class="box">
+     <button onclick="appendNumber('9')">
+        <p>9</p>
+     </button>
+   </div>
+   <div class="box">
+      <button onclick="chooseOperation('*')">
+         *
+      </button>
+    </div>
+</div>
+
+<div class="row">
+   <div class="box">
+     <button onclick="appendNumber('0')">
+        <p>0</p>
+     </button>
+   </div>
+   <div class="box">
+     <button onclick="appendNumber('00')">
+        <p>00</p>
+     </button>
+   </div>
+   <div class="box">
+     <button onclick="calculateResult('=')">
+        =
+     </button>
+   </div>
+   <div class="box">
+      <button onclick="chooseOperation('/')">
+         /
+      </button>
+    </div>
+</div>
+<br><br><br>
+<input type="text" id="result" readonly><br><br>
+
+<script>
+   let currentNumber = '';
+   let previousNumber = '';
+   let operation = null;
+
+   function appendNumber(number) {
+      currentNumber += number;
+      updateDisplay();
+   }
+
+   function chooseOperation(op) {
+      
+      operation = op;
+      previousNumber = currentNumber;
+      currentNumber = '';
+   }
+
+   function calculate() {
+      let result;
+      const prev = parseFloat(previousNumber);
+      const current = parseFloat(currentNumber);
+     
+
+      switch(operation) {
+         case '+':
+            result = prev + current;
+            break;
+         case '-':
+            result = prev - current;
+            break;
+         case '*':
+            result = prev * current;
+            break;
+         case '/':
+            result = prev / current;
+            break;
+         default:
+            return;
+      }
+      currentNumber = result;
+      operation = undefined;
+      previousNumber = '';
+   }
+
+   function calculateResult() {
+      calculate();
+      updateDisplay();
+   }
+
+   function updateDisplay() {
+      document.getElementById('result').value = currentNumber;
+   }
+</script>
+
+</body>
+</html>
